@@ -139,7 +139,8 @@ class SecureApiWithKeysStack(core.Stack):
         )
 
         # We have API Keys to attach to Usage Plan
-
+        # Usage plan for Developer with METHOD Level throttling
+        # There seems to be a BUG. console allows rate_limit to be float. But CDK throws an error.
         secure_api_with_keys_01_usage_plan_01 = secure_api_with_keys_01.add_usage_plan(
             "secureApiDevUsagePlan",
             name="DeveloperUsagePlan",
@@ -158,8 +159,10 @@ class SecureApiWithKeysStack(core.Stack):
                 limit=1440,
                 period=_apigw.Period.DAY
             ),
-            description="Api Security with usage plan and throttling"
+            description="Mystique Automation: Api Security with usage plan and throttling. Usage plan for developer s kon"
         )
+
+        # Usage plan for Partner with METHOD Level throttling
         secure_api_with_keys_01_usage_plan_02 = secure_api_with_keys_01.add_usage_plan(
             "secureApiPartnerUsagePlan",
             name="PartnerUsagePlan",
