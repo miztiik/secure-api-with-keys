@@ -103,6 +103,23 @@ class SecureApiWithKeysStack(core.Stack):
             description=f"{GlobalArgs.OWNER}: API Best Practice Demonstration - Security for APIs with Keys"
         )
 
+        back_end_01_api_res = secure_api_with_keys_01.root.add_resource(
+            "secure")
+        greeter = back_end_01_api_res.add_resource("greeter")
+
+        greeter_method_get = greeter.add_method(
+            http_method="GET",
+            request_parameters={
+                "method.request.header.InvocationType": True,
+                "method.request.path.pkon": True
+            },
+            integration=_apigw.LambdaIntegration(
+                handler=greeter_fn,
+                proxy=True
+            ),
+            api_key_required=True
+        )
+
         # Start with the API Keys
         dev_kon_api_key = _apigw.ApiKey(
             self,
@@ -137,6 +154,10 @@ class SecureApiWithKeysStack(core.Stack):
                 burst_limit=1,
                 rate_limit=1
             ),
+            quota=_apigw.QuotaSettings(
+                limit=1440,
+                period=_apigw.Period.DAY
+            ),
             description="Api Security with usage plan and throttling"
         )
         secure_api_with_keys_01_usage_plan_02 = secure_api_with_keys_01.add_usage_plan(
@@ -146,31 +167,27 @@ class SecureApiWithKeysStack(core.Stack):
             api_stages=[
                 _apigw.UsagePlanPerApiStage(
                     api=secure_api_with_keys_01,
-                    stage=secure_api_with_keys_01.deployment_stage
+                    stage=secure_api_with_keys_01.deployment_stage,
+                    throttle=[
+                        _apigw.ThrottlingPerMethod(
+                            method=greeter_method_get,
+                            throttle=_apigw.ThrottleSettings(
+                                burst_limit=50,
+                                rate_limit=5
+                            )
+                        )
+                    ]
                 )
             ],
             throttle=_apigw.ThrottleSettings(
                 burst_limit=100,
                 rate_limit=10
             ),
-            description="Mystique Automation: Api Security with usage plan and throttling. Usage plan for Partner Mystique Corp"
-        )
-
-        back_end_01_api_res = secure_api_with_keys_01.root.add_resource(
-            "secure")
-        greeter = back_end_01_api_res.add_resource("greeter")
-
-        greeter_method_get = greeter.add_method(
-            http_method="GET",
-            request_parameters={
-                "method.request.header.InvocationType": True,
-                "method.request.path.pkon": True
-            },
-            integration=_apigw.LambdaIntegration(
-                handler=greeter_fn,
-                proxy=True
+            quota=_apigw.QuotaSettings(
+                limit=864000,
+                period=_apigw.Period.DAY
             ),
-            api_key_required=True
+            description="Mystique Automation: Api Security with usage plan and throttling. Usage plan for Partner Mystique Corp"
         )
 
         # Outputs
