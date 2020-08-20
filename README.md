@@ -12,7 +12,7 @@ Rate limiting protects your APIs from overuse by limiting how often each user ca
 
 ![Miztiik Automation API Best Practices: Highly Performant Design - API Keys | Rate Limiting with Usage Plan](images/miztiik_api_rate_limits_architecture_00.png)
 
-In the above image, When rate limiting of `2 reqs/sec` was enabled at _13:30:01_ all requests above the limit are denied(_shown in red_). Amazon API Gateway throttles requests to your API using the token bucket algorithm<sup>[1][2]</sup>
+In the above image, When rate limiting of `2 reqs/sec` was enabled at _13:30:01_ all requests above the limit are denied(_shown in red_). This image is to show how rate-limiting works in a simplified way, Amazon API Gateway throttles requests to your API using the token bucket algorithm<sup>[1], [2]</sup>. Refer to the docs or the wiki reference to know more.
 
 ![Miztiik Automation API Best Practices: Highly Performant Design - API Keys | Rate Limiting with Usage Plan](images/miztiik_api_rate_limits_architecture_02.png)
 

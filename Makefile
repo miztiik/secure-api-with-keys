@@ -32,18 +32,12 @@ post_build: ## Show differences
 	cdk diff
 
 deploy: ## Deploy ALL stack
-	cdk deploy load-generator-vpc-stack --profile ${AWS_PROFILE} --require-approval never
-	cdk deploy secure-throttled-api --profile ${AWS_PROFILE} --require-approval never
-	cdk deploy unthrottled-api --profile ${AWS_PROFILE} --require-approval never
-	cdk deploy miztiik-artillery-load-generator --profile ${AWS_PROFILE} --require-approval never
-	cdk deploy waf-stack --profile ${AWS_PROFILE} --require-approval never
+	cdk deploy unsecure-api --profile ${AWS_PROFILE} --require-approval never
+	cdk deploy secure-api-with-keys --profile ${AWS_PROFILE} --require-approval never
 
 destroy: ## Delete Stack without confirmation
-	cdk destroy load-generator-vpc-stack --profile ${AWS_PROFILE} --require-approval never
-	cdk destroy secure-throttled-api --profile ${AWS_PROFILE} --require-approval never
-	cdk destroy unthrottled-api --profile ${AWS_PROFILE} --require-approval never
-	cdk destroy miztiik-artillery-load-generator --profile ${AWS_PROFILE} --require-approval never
-	cdk destroy waf-stack --profile ${AWS_PROFILE} --require-approval never
+	cdk destroy unsecure-api --profile ${AWS_PROFILE} --require-approval never
+	cdk destroy secure-api-with-keys --profile ${AWS_PROFILE} --require-approval never
 
 deps: deps_python ## Install dependancies
 
