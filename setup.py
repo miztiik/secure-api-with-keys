@@ -9,7 +9,7 @@ setuptools.setup(
     name="secure_api_with_keys",
     version="0.0.1",
 
-    description="An empty CDK Python app",
+    description="PI Best Practices: Highly Performant Design - API Keys | Rate Limiting with Usage Plan",
     long_description=long_description,
     long_description_content_type="text/markdown",
 
@@ -19,7 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="secure_api_with_keys"),
 
     install_requires=[
-        "aws-cdk.core==1.59.0",
+        "aws-cdk.core==1.61.0",
     ],
 
     python_requires=">=3.6",
